@@ -30,12 +30,15 @@ table {
     margin: 20px auto;
     border-collapse: collapse;
     text-align: center;
+    border : 10px solid black;
+}
+
+table, th, td {
     border: 2px solid black;
 }
 th, td {
     padding: 10px;
     text-align: left;
-    border: 2px solid black;
 }
 
 form {
