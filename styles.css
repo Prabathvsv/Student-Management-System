@@ -35,10 +35,15 @@ table {
 
 table, th, td {
     border: 2px solid black;
+    text-align: center;
+    justify-content: center;
+    align-items: center ;
+
 }
 th, td {
+
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 form {
@@ -106,3 +111,4 @@ select {
     box-sizing: border-box;
     text-align: center;
 }
+

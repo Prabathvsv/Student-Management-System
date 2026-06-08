@@ -5,15 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student</title>
 
+    <script>
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var roll = urlParams.get("roll");
+
+            var students = JSON.parse(localStorage.getItem("students")) || [];
+            var student = students.find(function (student) {
+                return student.roll === roll;
+            });
+
+            if (student) {
+                document.getElementById("name").value = student.name;
+                document.getElementById("roll").value = student.roll;
+                document.getElementById("cgpa").value = student.cgpa;
+                document.getElementById("branch").value = student.branch;
+            }
+        }
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    
     <nav>
         <a href = "dashboard.html">Dashboard</a>  |
         <a href = "view-students.html">View Students</a> |
         <a href = "logout.html">Logout</a>
     </nav>
-
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
     <h1>Edit Student</h1>
     <form action="view-students.html" method="get">
         <label for="name">Name:</label>

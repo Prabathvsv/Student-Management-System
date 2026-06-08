@@ -4,6 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
+    <script>
+window.onload = function () {
+    viewStudents();
+};
+
+function viewStudents() {
+    var students = JSON.parse(localStorage.getItem("students")) || [];
+    var tb = document.querySelector("tbody");
+
+    tb.innerHTML = "";
+
+    if (students.length === 0) {
+        tb.innerHTML =
+            "<tr><td colspan='6'>No students found</td></tr>";
+        return;
+    }
+
+    students.forEach(function (student) {
+        var row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.roll}</td>
+            <td>${student.cgpa}</td>
+            <td>${student.branch}</td>
+            <td>
+                <button onclick="window.location.href='edit-student.html?roll=${student.roll}'">
+                    Edit
+                </button>
+            
+            </td>
+            <td>
+                <button onclick="deleteStudent('${student.roll}')">
+                    Delete
+                </button>
+            </td>`;
+        tb.appendChild(row);
+    });
+}
+
+function deleteStudent(roll) {
+    var students = JSON.parse(localStorage.getItem("students")) || [];
+
+    students = students.filter(function (student) {
+        return student.roll !== roll;
+    });
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    viewStudents();
+}
+</script>
     <nav>
         <a href = "dashboard.html">Dashboard</a>  |
         <a href = "add-student.html">Add Student</a>  |
@@ -17,56 +68,25 @@
     <p>Here you can view all the students in the system.</p>
 
     
-    <table border="1" width="50%">
-        <tr>
-            <th>Name</th>
-            <th>Roll Number</th>
-            <th>CGPA</th>
-            <th>Branch</th> 
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td>Prabath</td>
-            <td>23B81A62G6</td>
-            <td>9.1</td>
-            <td>Computer Science</td>
-            <td>
-                <a href="edit-student.html">Edit</a> |
-                <a href="#">Delete</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Chandra Shekar</td>
-            <td>23B81A6214</td>
-            <td>9.9</td>
-            <td>CyberSecurity</td>
-            <td>
-                <a href="edit-student.html">Edit</a> |
-                <a href="#">Delete</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Rohith</td>
-            <td>23B81A6201</td>
-            <td>8.5</td>
-            <td>Information Technology</td>
-            <td>
-                <a href="edit-student.html">Edit</a> |
-                <a href="#">Delete</a>
-            </td>
-        </tr>
+    <table border="1"  id = "table">
+        
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Roll Number</th>
+                <th>CGPA</th>
+                <th>Branch</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        <tr>
-            <td>Vishnu</td>
-            <td>23B81A6205</td>
-            <td>9.0</td>
-            <td>Electronics and Communication</td>
-            <td>
-                <a href="edit-student.html">Edit</a> |
-                <a href="#">Delete</a>
-            </td>
-        </tr>
-    </table>
+            </tbody>
+
+
+        
+        </table>
 
     <footer>
         <b>&copy; 2026 Student Management System. All rights reserved.</b>

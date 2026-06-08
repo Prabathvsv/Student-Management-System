@@ -4,17 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script>
+        function storeData(event) {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPass = document.getElementById("confirmPass").value;
+
+            if(password !== confirmPass) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            var data = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            localStorage.setItem("user" , JSON.stringify(data));
+            event.preventDefault();
+            window.location.href = "login.html";
+            
+        }
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
     <nav>
         <a href = "index.html">Home</a>  |
         <a href = "login.html">Login</a> |
         <a href = "register.html">Register</a>
 
     </nav>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
     <h1>Register </h1>
-    <form action = "login.html" method = "get">
+    <form onsubmit = "storeData(event)">
         <label for = "username">Username : </label>
         <input id = "username" type = "text" name = "username" required>
         <br>
