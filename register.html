@@ -10,11 +10,8 @@
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
             var confirmPass = document.getElementById("confirmPass").value;
-
-            if(password !== confirmPass) {
-                alert("Passwords do not match");
-                return;
-            }
+            
+            if(validateForm(username , email , password , confirmPass) === false) return false;
 
             var data = {
                 username: username,
@@ -26,6 +23,29 @@
             event.preventDefault();
             window.location.href = "login.html";
             
+        }
+        function validateForm(username , email , password , confirmPass) {
+            event.preventDefault();
+             var userExp = /^[A-Za-z][A-Za-z0-9]{8,}/;
+            if(!userExp.test(username)){
+                alert("Invalid username");
+                return false;
+            }
+            
+            var passwordExp = /[a-zA-Z0-9]{9,}/;
+            if(!passwordExp.test(password)){
+                alert("Invalid password");
+                return false;
+            }
+            
+            
+
+
+            if(password !== confirmPass) {
+                alert("Passwords do not match");
+                return false;
+            }
+            return true;
         }
     </script>
     

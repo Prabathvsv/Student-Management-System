@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script>
+
         function validateForm(event) {
             event.preventDefault();
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
+            
+            var userExp = /^[A-Za-z][A-Za-z0-9]{8,}/;
+            if(!userExp.test(username)){
+                alert("Invalid username");
+                return false;
+            }
 
+             var passwordExp = /[a-zA-Z0-9]{9,}/;
+            if(!passwordExp.test(password)){
+                alert("Invalid password");
+                return false;
+            }
             var storedData = JSON.parse(localStorage.getItem("user"));
             if(storedData && storedData.username === username && storedData.password === password) {
                 alert("Login Successful");

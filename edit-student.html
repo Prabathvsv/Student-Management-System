@@ -5,25 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student</title>
 
-    <script>
-        window.onload = function () {
-            var urlParams = new URLSearchParams(window.location.search);
-            var roll = urlParams.get("roll");
+   <script>
+    let studentIndex = -1;
 
-            var students = JSON.parse(localStorage.getItem("students")) || [];
-            var student = students.find(function (student) {
-                return student.roll === roll;
-            });
+    window.onload = function () {
+        event.preventDefault();
+        const urlParams = new URLSearchParams(window.location.search);
+        const roll = urlParams.get("roll");
 
-            if (student) {
-                document.getElementById("name").value = student.name;
-                document.getElementById("roll").value = student.roll;
-                document.getElementById("cgpa").value = student.cgpa;
-                document.getElementById("branch").value = student.branch;
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+
+        for (let i = 0; i < students.length; i++) {
+            if (students[i].roll === roll) {
+                studentIndex = i;
+
+                document.getElementById("name").value = students[i].name;
+                document.getElementById("roll").value = students[i].roll;
+                document.getElementById("cgpa").value = students[i].cgpa;
+                document.getElementById("branch").value = students[i].branch;
+
+                break;
             }
         }
 
-    </script>
+        if (studentIndex === -1) {
+            alert("Student not found!");
+            window.location.href = "view-students.html";
+        }
+    };
+
+    function updateStudent(event) {
+        event.preventDefault();
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+        const newRoll = document.getElementById("roll").value;
+        for (let i = 0; i < students.length; i++) {
+            if (students[i].roll === newRoll && i !== studentIndex) {
+                alert("Student with this roll number already exists!");
+                return;
+            }
+        }
+
+        students[studentIndex] = {
+            name: document.getElementById("name").value,
+            roll: newRoll,
+            cgpa: document.getElementById("cgpa").value,
+            branch: document.getElementById("branch").value
+        };
+
+        localStorage.setItem("students", JSON.stringify(students));
+
+        alert("Student updated successfully!");
+
+        window.location.href = "view-students.html";
+    }
+</script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
@@ -34,7 +69,7 @@
         <a href = "logout.html">Logout</a>
     </nav>
     <h1>Edit Student</h1>
-    <form action="view-students.html" method="get">
+    <form onsubmit="updateStudent(event)">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 

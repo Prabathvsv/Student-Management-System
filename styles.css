@@ -5,6 +5,7 @@ body{
 }
 nav {
     background-color: black;
+    
     padding: 10px;
     text-align: center;
     
@@ -38,10 +39,8 @@ table, th, td {
     text-align: center;
     justify-content: center;
     align-items: center ;
-
 }
 th, td {
-
     padding: 10px;
     text-align: center;
 }
